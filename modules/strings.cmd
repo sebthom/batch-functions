@@ -24,7 +24,7 @@ goto :eof
 goto :eof
 
 
-:replace_substrings <SEARCH_IN> <SEARCH_FOR> <REPLACE_WITH> <RESULT_VAR>
+:replace_substrings <SEARCH_IN> <SEARCH_FOR> <REPLACE_WITH> [<RESULT_VAR>]
   :: replace all matching substrings
   setlocal
   set search_in=%~1
@@ -42,7 +42,7 @@ goto :eof
 goto :eof
 
 
-:substring_before <SEARCH_IN> <SEARCH_FOR> <RESULT_VAR>
+:substring_before <SEARCH_IN> <SEARCH_FOR> [<RESULT_VAR>]
   setlocal
   set search_in=%~1
   set separator=%~2

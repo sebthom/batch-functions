@@ -7,11 +7,16 @@ call :%* ""
 goto :eof
 
 
-:getx <RESULT_VAR> [/M]
+:getx  [<RESULT_VAR>] [/M]
   :: counterpart to setx command
   setlocal
-  set result_var=%~1
-  set system_wide=%~2
+  if "%~1" == "/M" (
+    set result_var=%~2
+    set system_wide=%~1
+  ) else (
+    set result_var=%~1
+    set system_wide=%~2
+  )
   if /I "%system_wide%" == "/M" (
     set "reg_path=HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment"
   ) else (
@@ -28,7 +33,7 @@ goto :eof
 goto :eof
 
 
-:get_windows_major_version <RESULT_VAR>
+:get_windows_major_version  [<RESULT_VAR>]
   setlocal
   set result_var=%~1
   for /F "tokens=4-5 delims=. " %%i in ('ver') do set win_major_ver=%%i
