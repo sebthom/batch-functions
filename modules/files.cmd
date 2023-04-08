@@ -7,6 +7,18 @@ call :%* ""
 goto :eof
 
 
+:abspath <RELATIVE_PATH> [<RESULT_VAR>]
+  setlocal
+  set abs_path=%~f1
+  set result_var=%~2
+  if "%result_var%" == "" (
+    echo %abs_path%
+    exit /B 0
+  )
+  endlocal & set "%result_var%=%abs_path%"
+goto :eof
+
+
 :basename <PATH> [<RESULT_VAR>]
   setlocal
   set basename=%~nx1
