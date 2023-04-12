@@ -25,7 +25,7 @@ goto :eof
   for /F "tokens=2* skip=2" %%a in ('reg query "%reg_path%" /v Path') do (
     set "value=%%b"
   )
-  if "%result_var%" == "" (
+  if not defined result_var (
     echo %value%
     exit /B 0
   )
@@ -37,7 +37,7 @@ goto :eof
   setlocal
   set result_var=%~1
   for /F "tokens=4-5 delims=. " %%i in ('ver') do set win_major_ver=%%i
-  if "%result_var%" == "" (
+  if not defined result_var (
     echo %win_major_ver%
     exit /B 0
   )

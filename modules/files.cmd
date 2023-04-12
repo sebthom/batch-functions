@@ -11,7 +11,7 @@ goto :eof
   setlocal
   set abs_path=%~f1
   set result_var=%~2
-  if "%result_var%" == "" (
+  if not defined result_var (
     echo %abs_path%
     exit /B 0
   )
@@ -23,7 +23,7 @@ goto :eof
   setlocal
   set basename=%~nx1
   set result_var=%~2
-  if "%result_var%" == "" (
+  if not defined result_var (
     echo %basename%
     exit /B 0
   )
@@ -34,7 +34,7 @@ goto :eof
   setlocal
   set basename=%~n1
   set result_var=%~2
-  if "%result_var%" == "" (
+  if not defined result_var (
     echo %basename%
     exit /B 0
   )
@@ -46,7 +46,7 @@ goto :eof
   set file_path=%~1
   set result_var=%~2
   set /P content=<"%file_path%"
-  if "%result_var%" == "" (
+  if not defined result_var (
     echo %content%
     exit /B 0
   )

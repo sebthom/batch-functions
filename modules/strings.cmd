@@ -34,7 +34,7 @@ goto :eof
 
   call set result=%%search_in:%search_for%=%replace_with%%%
 
-  if "%result_var%" == "" (
+  if not defined result_var (
     echo %result%
     exit /B 0
   )
@@ -48,13 +48,8 @@ goto :eof
   set separator=%~2
   set result_var=%~3
 
-  if "%result_var%" == "" (
-    echo %0 - Argument RESULT_VAR missing!
-    exit /B 1
-  )
-
   for /F "delims=%separator%" %%a in ("%search_in%") do (
-    if "%result_var%" == "" (
+    if not defined result_var (
       echo %result%
     ) else (
       endlocal & set "%result_var%=%%a"
