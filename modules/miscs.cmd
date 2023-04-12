@@ -43,3 +43,34 @@ goto :eof
   )
   endlocal & set "%result_var%=%win_major_ver%"
 goto :eof
+
+
+:print <MESSAGE>
+  :: outputs the message to the console without trailing new line characters
+  echo|set /p="%~1"
+goto :eof
+
+
+:capture <CMD> [<RESULT_VAR>] [<LINE_SEPARATOR>]
+  :: captures the output of a command in a variable
+  setlocal EnableDelayedExpansion
+  set cmd=%~1
+  set result_var=%~2
+  set line_separator=%~3
+  if not defined line_separator (
+    set line_separator=^& echo.
+  )
+  set stdout=
+  for /F "delims=" %%f in ('%cmd%') do (
+    if defined stdout (
+      set "stdout=!stdout!!line_separator!%%f"
+    ) else (
+      set "stdout=%%f"
+    )
+  )
+  if not defined result_var (
+    echo %stdout%
+    exit /B 0
+  )
+  endlocal & set "%result_var%=%stdout%"
+goto :eof
