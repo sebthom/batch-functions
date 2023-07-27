@@ -8,7 +8,12 @@ goto :eof
 
 
 :ends_with <SEARCH_IN> <SEARCH_FOR>
-  echo %~1|findstr /E /L %2 >NUL
+  set search_in=%~1
+  set search_for=%~2
+  if "%search_for%" == "" exit /B 0
+  if "%search_in%" == "%search_for%" exit /B 0
+
+  echo %search_in%|findstr /E /L "%search_for%" >NUL
 goto :eof
 
 
@@ -16,10 +21,12 @@ goto :eof
   setlocal
   set search_in=%~1
   set search_for=%~2
+  if "%search_for%" == "" exit /B 0
+  if "%search_in%" == "%search_for%" exit /B 0
 
-  call :replace_substring "%search_in%" "%search_for%" "" result
+  call :replace_substrings "%search_in%" "%search_for%" "" result
 
-  REM substring not found
+  :: substring not found
   if "%searchIn%" == "%result%" exit /B 1
 goto :eof
 
@@ -32,7 +39,13 @@ goto :eof
   set replace_with=%~3
   set result_var=%~4
 
-  call set result=%%search_in:%search_for%=%replace_with%%%
+  if "%search_in%" == "" (
+    set result=%search_in%
+  ) else if "%search_for%" == "" (
+    set result=%search_in%
+  ) else (
+    call set result=%%search_in:%search_for%=%replace_with%%%
+  )
 
   if not defined result_var (
     echo %result%
@@ -56,4 +69,5 @@ goto :eof
     )
     exit /B 0
   )
+  endlocal & set "%result_var%=%search_in%"
 goto :eof
