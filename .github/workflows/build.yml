@@ -3,9 +3,9 @@ name: Build
 
 on:
   push:
-    branches-ignore: # build all branches except:
-      - 'dependabot/**' # prevent GHA triggered twice (once for commit to the branch and once for opening/syncing the PR)
-    tags-ignore: # don't build tags
+    branches-ignore:  # build all branches except:
+    - 'dependabot/**'  # prevent GHA triggered twice (once for commit to the branch and once for opening/syncing the PR)
+    tags-ignore:  # don't build tags
     - '**'
     paths-ignore:
     - '**/*.adoc'
@@ -26,7 +26,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Show environment variables
+    - name: "Show: environment variables"
       run: set
 
     - name: Git Checkout
