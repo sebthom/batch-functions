@@ -38,7 +38,7 @@ jobs:
       run: set
 
     - name: Git Checkout
-      uses: actions/checkout@v5  # https://github.com/actions/checkout
+      uses: actions/checkout@v6  # https://github.com/actions/checkout
 
     - name: Run tests
       run: call tests/test_all.cmd
